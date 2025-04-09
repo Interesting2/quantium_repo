@@ -10,7 +10,7 @@ sales_df = pd.read_csv("output.csv", delimiter=',')
 app = Dash()
 
 colors = {
-    'background': '#FFFCFF',
+    'background': '#FFF1FF',
     'text': '#333333',
     'subtext': '#800080',
     'accent': '#4CAF50'
