@@ -1,0 +1,4 @@
+dash
+pytest
+dash[testing]
+selenium
