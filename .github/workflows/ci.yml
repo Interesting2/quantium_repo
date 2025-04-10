@@ -23,19 +23,19 @@ jobs:
 
     # Install Chrome and ChromeDriver
     - name: Install Chrome
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget curl unzip
-          curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome-stable_current_amd64.deb
-          sudo apt-get install -f  # Fix dependencies if needed
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget curl unzip
+        curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb
+        sudo apt-get install -f  # Fix dependencies if needed
 
     - name: Install ChromeDriver
-        run: |
-          LATEST=$(curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          wget https://chromedriver.storage.googleapis.com/${LATEST}/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/
+      run: |
+        LATEST=$(curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+        wget https://chromedriver.storage.googleapis.com/${LATEST}/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/local/bin/
 
     - name: Install dependencies
       run: |
@@ -45,6 +45,3 @@ jobs:
     - name: Run tests
       run: |
         bash automate_tests.sh
-
-
-
