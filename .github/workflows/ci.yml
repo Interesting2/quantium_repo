@@ -1,25 +1,28 @@
-name: Run Unit Test via Pytest
+name: Run Tests on Push
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8"]
 
     steps:
-      - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      # Set up Python
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.8'
 
-      # Install Chrome and ChromeDriver
-      - name: Install Chrome
+    # Install Chrome and ChromeDriver
+    - name: Install Chrome
         run: |
           sudo apt-get update
           sudo apt-get install -y wget curl unzip
@@ -27,19 +30,21 @@ jobs:
           sudo dpkg -i google-chrome-stable_current_amd64.deb
           sudo apt-get install -f  # Fix dependencies if needed
 
-      - name: Install ChromeDriver
+    - name: Install ChromeDriver
         run: |
           LATEST=$(curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
           wget https://chromedriver.storage.googleapis.com/${LATEST}/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/
 
-      # Recreate virtual environment and install dependencies
-      - name: Recreate virtual environment and install dependencies
-        run: |
-          pip install --upgrade pip  # Upgrade pip
-          pip install -r requirements.txt  # Install other dependencies from requirements.txt
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements.txt
 
-      - name: Run tests
+    - name: Run tests
       run: |
         bash automate_tests.sh
+
+
+
