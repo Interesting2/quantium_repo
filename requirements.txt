@@ -2,3 +2,4 @@ dash
 pytest
 dash[testing]
 selenium
+numpy
