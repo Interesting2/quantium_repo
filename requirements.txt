@@ -3,3 +3,4 @@ pytest
 dash[testing]
 selenium
 numpy
+pandas
